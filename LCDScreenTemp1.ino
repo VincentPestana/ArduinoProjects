@@ -1,27 +1,66 @@
 #include <LiquidCrystal.h>
 
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
-
 const int temperaturePin = A0;
+
+float tempMin, tempAverage, tempMax;
+
+int uptime = 0;
+
+// Initialize the display
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 void setup() 
 {
     lcd.begin(16, 2);
     lcd.clear();
-    float tempCentigrade = convertToCentigrade(getTempVoltage(temperaturePin));
-    lcd.print("Start : ");
-    lcd.print(tempCentigrade);
-    lcd.print("c");
+
+    lcd.print("Temperature Avg's");
+    float startingTemp = convertToCentigrade(getTempVoltage(temperaturePin));
+    tempMin = startingTemp;
+    tempAverage = startingTemp;
+    tempMax = startingTemp;
 }
 
 void loop()
 {
-    lcd.setCursor(0, 1);
-    float tempCentigrade = convertToCentigrade(getTempVoltage(temperaturePin));
-    lcd.print(tempCentigrade);
-    lcd.print("c");
+    // Temperature display
+    for (int i = 0; i < 20; i++)
+    {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        float tempCurrent = convertToCentigrade(getTempVoltage(temperaturePin));
 
-    delay(1000);
+        if (tempCurrent < tempMin)
+        {
+            tempMin = tempCurrent;
+        }
+        
+        if (tempCurrent > tempMax)
+        {
+            tempMax = tempCurrent;
+        }
+
+        tempAverage = (tempAverage + tempCurrent) / 2;
+        
+        lcd.print(tempMin, 1);
+        lcd.print(" ");
+        lcd.print(tempAverage, 1);
+        lcd.print(" ");
+        lcd.print(tempMax, 1);
+
+        lcd.setCursor(0, 1);
+        lcd.print("Min   Avg   Max");
+
+        delay(1000);
+    }
+    
+    // Info display
+    lcd.clear();
+    lcd.print(millis() / 1000);
+    lcd.print("s");
+    lcd.setCursor(0, 1);
+    lcd.print("Uptime");
+    delay(2000);
 }
 
 // Function to read and return

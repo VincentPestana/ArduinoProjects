@@ -22,11 +22,15 @@ void setup()
     lcd.begin(16, 2);
     lcd.clear();
 
-    lcd.print("Temperature Avg's");
+    lcd.print("Temperature");
+    lcd.setCursor(0, 1);
+    lcd.print("Averages");
     float startingTemp = convertToCentigrade(getTempVoltage(temperaturePin));
     tempMin = startingTemp;
     tempAverage = startingTemp;
     tempMax = startingTemp;
+
+    delay(1000);
 }
 
 void loop()
@@ -64,14 +68,13 @@ void loop()
     
     // Info display
     lcd.clear();
-    lcd.print(millis() / 1000);
-    lcd.print("s");
-    lcd.print(" Uptime");
-    lcd.setCursor(0, 1);
     lcd.print((millis() / 1000) / 60);
     lcd.print(".");
     lcd.print((millis() / 1000) % 60);
     lcd.print("m");
+    lcd.setCursor(0, 1);
+    lcd.print(((millis() / 1000) / 60) / 60);
+    lcd.print("h");
     lcd.print(" Uptime");
     delay(3000);
 }

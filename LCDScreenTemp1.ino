@@ -1,3 +1,11 @@
+/*
+Author: Vincent Pestana
+
+Desciption:
+    Using the Sparkfun SIK kit. Using the display to display the temp sensor.
+
+*/
+
 #include <LiquidCrystal.h>
 
 const int temperaturePin = A0;
@@ -65,7 +73,7 @@ void loop()
     lcd.print((millis() / 1000) % 60);
     lcd.print("m");
     lcd.print(" Uptime");
-    delay(2000);
+    delay(3000);
 }
 
 // Function to read and return

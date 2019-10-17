@@ -58,8 +58,13 @@ void loop()
     lcd.clear();
     lcd.print(millis() / 1000);
     lcd.print("s");
+    lcd.print(" Uptime");
     lcd.setCursor(0, 1);
-    lcd.print("Uptime");
+    lcd.print((millis() / 1000) / 60);
+    lcd.print(".");
+    lcd.print((millis() / 1000) % 60);
+    lcd.print("m");
+    lcd.print(" Uptime");
     delay(2000);
 }
 

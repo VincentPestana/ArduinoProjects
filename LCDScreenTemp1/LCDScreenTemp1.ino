@@ -2,12 +2,13 @@
 Author: Vincent Pestana
 
 Desciption:
-    Using the Sparkfun SIK kit. Using the display to display the temp sensor.
+    Using the Sparkfun SIK kit. Using the display to display the temp sensor in centigrade
 
 */
 
 #include <LiquidCrystal.h>
 
+// What pin is the temp sensor attached to
 const int temperaturePin = A0;
 
 float tempMin, tempAverage, tempMax;
@@ -79,17 +80,20 @@ void loop()
     delay(3000);
 }
 
-// Function to read and return
-//  floating-point value (true voltage)
-//  on analog pin 
+/*
+ * Function to read and return floating-point value (true voltage) on analog pin
+ *  This equation converts the 0 to 1023 value that analogRead()
+ *  returns, into a 0.0 to 5.0 value that is the true voltage
+ *  being read at that pin.
+ */
 float getTempVoltage(int pin)
 {
 	return (analogRead(pin) * 0.004882814);	
-	// This equation converts the 0 to 1023 value that analogRead()
-	// returns, into a 0.0 to 5.0 value that is the true voltage
-	// being read at that pin.
 }
 
+/*
+ * Convert centigrade to fahrenheit
+ */
 float convertToCentigrade(float tempVoltage)
 {
     return (tempVoltage - 0.5) * 100.0;

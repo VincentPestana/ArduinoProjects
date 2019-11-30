@@ -67,7 +67,7 @@ void loop()
         delay(1000);
     }
     
-    // Info display
+    // Uptime display
     lcd.clear();
     lcd.print((millis() / 1000) / 60);
     lcd.print(".");
@@ -88,11 +88,11 @@ void loop()
  */
 float getTempVoltage(int pin)
 {
-	return (analogRead(pin) * 0.004882814);	
+	return (analogRead(pin) * 0.004882814);
 }
 
 /*
- * Convert centigrade to fahrenheit
+ * Convert the temp sensor voltage to centigrade
  */
 float convertToCentigrade(float tempVoltage)
 {
